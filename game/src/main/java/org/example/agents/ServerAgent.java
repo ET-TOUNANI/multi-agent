@@ -12,7 +12,7 @@ public class ServerAgent extends Agent {
     int number;
     @Override
     protected void setup() {
-        number= (int) (Math.random()*10);
+        number= (int) (Math.random()*100);
         ParallelBehaviour parallelBehaviour=new ParallelBehaviour();
         addBehaviour(parallelBehaviour);
         parallelBehaviour.addSubBehaviour(new CyclicBehaviour() {
