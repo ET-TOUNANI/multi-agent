@@ -12,7 +12,8 @@ public class SaimpleContainer1 {
         ProfileImpl profile=new ProfileImpl();
         profile.setParameter("host","localhost");
         AgentContainer container =runtime.createAgentContainer(profile);
-        AgentController agentClient=container.createNewAgent("client","org.example.agents.AgentClient",new  Object[]{});
+        String password="1234567812345678";
+        AgentController agentClient=container.createNewAgent("client","org.example.agents.AgentClient",new  Object[]{password});
         agentClient.start();
     }
 
