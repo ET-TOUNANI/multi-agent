@@ -1,5 +1,3 @@
-package org.example;
-
 import jade.core.ProfileImpl;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.ControllerException;

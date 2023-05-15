@@ -1,5 +1,3 @@
-package org.example;
-
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -17,7 +15,7 @@ public class BuyerAgent extends Agent {
     */
     DFAgentDescription[] dfAgentDescriptions;
     private AID bestSaller;
-    private double bestPrice;
+    private double bestPrice=Double.MAX_VALUE;
     private int cpt=0;
 
     @Override
@@ -51,7 +49,7 @@ public class BuyerAgent extends Agent {
                 ACLMessage receierMessage = receive();
                 if (receierMessage!=null) {
                     switch (receierMessage.getPerformative()) {
-                        case ACLMessage.PROPOSE:
+                        case ACLMessage.PROPOSE: {
                             cpt++;
                             double price = Double.parseDouble(receierMessage.getContent());
                             if (price < bestPrice) {
@@ -62,19 +60,21 @@ public class BuyerAgent extends Agent {
                                 ACLMessage aclMessage = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
                                 aclMessage.addReceiver(bestSaller);
                                 aclMessage.setContent(" I accept your proposed price!!");
-                                aclMessage.setSender(bestSaller);
                                 send(aclMessage);
                             }
                             break;
-                        case  ACLMessage.AGREE:
+                        }
+                        case  ACLMessage.AGREE: {
                             ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-                            aclMessage.addReceiver(receierMessage.getSender());
                             aclMessage.setContent(" I want the sell the product");
+                            aclMessage.addReceiver(receierMessage.getSender());
                             send(aclMessage);
                             break;
-                        case  ACLMessage.CONFIRM:
-                            System.out.println("Le nom de Seller " + receierMessage.getSender().getName() + " Prix :"+receierMessage.getContent());
+                        }
+                        case  ACLMessage.CONFIRM: {
+                            System.out.println("Le nom de Seller " + receierMessage.getSender().getLocalName() + " Prix :" + receierMessage.getContent());
                             break;
+                        }
                     }
                 }
                 else  {
