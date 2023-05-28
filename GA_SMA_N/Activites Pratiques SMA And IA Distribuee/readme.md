@@ -1,11 +1,13 @@
 # Genetic Algorithm with SMA for finding the sentence "Bonjour BDCC"
 
 ## Table of Contents
+
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Code](#code)
 - [WHO](#who)
+
 ## Introduction
 
 <p style="text-align: justify;text-justify: inter-word;">
@@ -14,12 +16,13 @@ an agent-based model. By using <b style="color:green">the Island architecture</b
 The agents communicate with each other to exchange the best individuals of their population. The best individual of each population is the one that has the highest fitness value. The fitness value is calculated by comparing the individual's chromosome with the solution's chromosome. The solution's chromosome is the sentence "Bonjour BDCC". The fitness value is the number of characters that are in the right position. For example, the fitness value of the individual "Bonjour BDCC" is 12 because all the characters are in the right position.
 </p>
 
-
 > Island Architecture
- <img src="demo/1.png">
+> <img src="demo/1.png">
 
 ## Installation
+
 > Requirements
+
 - Java 8 or higher
 - An IDE (IntelliJ IDEA, Eclipse, Netbeans, etc...)
 - Jade platform (included in the project)
@@ -29,9 +32,11 @@ The agents communicate with each other to exchange the best individuals of their
 > Steps
 
 - Clone the repository
+
 ```bash
 git clone
 ```
+
 - Open the project with your favorite IDE
 - Add the jade.jar file to the project's dependencies
 - Run the project
@@ -39,10 +44,10 @@ git clone
 
 ## Usage
 
-
 ## Code
 
-> Main container 
+> Main container
+
 ```Java
 public class MainContainer {
     public static void main(String[] args) throws ControllerException {
@@ -54,7 +59,9 @@ public class MainContainer {
     }
 }
 ```
+
 > Island Agent
+
 ```Java
 public class IslandAgent extends Agent {
     private GenticAlgorithm ga=new GenticAlgorithm();
@@ -121,7 +128,9 @@ public class IslandAgent extends Agent {
     }
 }
 ```
+
 > Individual
+
 ```Java
 package ma.enset.bddc;
 
@@ -175,7 +184,9 @@ public class Individual implements Comparable{
     }
 }
 ```
+
 > Master Agent
+
 ```Java
 public class MasterAgent extends Agent {
     @Override
@@ -212,27 +223,30 @@ public class MasterAgent extends Agent {
 }
 
 ```
+
 > Simple Container
- ```Java
+
+```Java
 public class SimpleContainer {
-    public static void main(String[] args) throws ControllerException {
-        Runtime runtime=Runtime.instance();
-        ProfileImpl profile=new ProfileImpl();
-        profile.setParameter(Profile.MAIN_HOST,"localhost");
-        AgentContainer agentContainer=runtime.createAgentContainer(profile);
+   public static void main(String[] args) throws ControllerException {
+       Runtime runtime=Runtime.instance();
+       ProfileImpl profile=new ProfileImpl();
+       profile.setParameter(Profile.MAIN_HOST,"localhost");
+       AgentContainer agentContainer=runtime.createAgentContainer(profile);
 
-        AgentController master=agentContainer.createNewAgent("master", MasterAgent.class.getName(),new Object[]{});
-        master.start();
+       AgentController master=agentContainer.createNewAgent("master", MasterAgent.class.getName(),new Object[]{});
+       master.start();
 
-        for (int i = 1; i < 5; i++) {
-            AgentController island=agentContainer.createNewAgent("island"+i, IslandAgent.class.getName(),new Object[]{});
-            island.start();
-        }
-    }
+       for (int i = 1; i < 5; i++) {
+           AgentController island=agentContainer.createNewAgent("island"+i, IslandAgent.class.getName(),new Object[]{});
+           island.start();
+       }
+   }
 }
 ```
 
 > GUtils
+
 ```Java
 public class GAUtils {
     public static final int CHROMOSOME_SIZE = 16;
@@ -245,7 +259,9 @@ public class GAUtils {
 
 }
 ```
+
 > GenticAlgorithm
+
 ```Java
 public class GenticAlgorithm {
     public Individual[] population=new Individual[GAUtils.POPULATION_SIZE];
@@ -306,6 +322,7 @@ public class GenticAlgorithm {
 ```
 
 > Individual
+
 ```Java
 public class Individual implements Comparable {
     GenticAlgorithm genticAlgorithm=new GenticAlgorithm();
@@ -360,5 +377,11 @@ public class Individual implements Comparable {
 }
 ```
 
+## Demo
+
+> Islands
+> <img src="demo/2.png">
+
 ## WHO
+
 This project was created by Abderrahmane Ettounani.
